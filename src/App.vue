@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <Header />
+    <Header
+      :user="this.user"
+      :role="this.role"
+    />
     <v-content>
       <router-view :catchUser="catchUser" />
     </v-content>

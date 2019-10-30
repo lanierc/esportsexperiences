@@ -10,12 +10,14 @@
     <v-btn
       text
       to="/login"
+      v-if="!user"
     >
       <v-icon>mdi-login</v-icon> Login
     </v-btn>
     <v-btn
       text
       to="/signup"
+      v-if="!user"
     >
       <v-icon>mdi-account-plus</v-icon> Signup
     </v-btn>
@@ -24,6 +26,10 @@
 
 <script>
 export default {
-  name: "header"
+  name: "header",
+  props: {
+    user: String,
+    role: String
+  }
 };
 </script>
