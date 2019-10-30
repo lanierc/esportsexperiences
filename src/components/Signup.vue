@@ -17,10 +17,10 @@
       />
       <v-text-field
         label="Verify Password"
-        :type="show ? 'text' : 'password'"
+        :type="showVerify ? 'text' : 'password'"
         prepend-icon="mdi-key"
-        :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
-        @click:append="show = !show"
+        :append-icon="showVerify ? 'mdi-eye-off' : 'mdi-eye'"
+        @click:append="showVerify = !showVerify"
         v-model="verifyPassword"
       />
       <v-text-field
@@ -48,6 +48,7 @@ export default {
       username: "",
       location: "",
       show: false,
+      showVerify: false,
       success: false,
       loading: false,
       error: null
