@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import { setToken } from "../services/tokenService";
 export default {
   name: "login",
   data() {
@@ -41,12 +43,34 @@ export default {
       email: "",
       password: "",
       loading: false,
-      show: false
+      success: false,
+      show: false,
+      error: null
     };
   },
   methods: {
     doLogin: async function() {
       this.loading = true;
+      const { email, password } = this.$data;
+      try {
+        const res = await axios({
+          method: "POST",
+          url: "/api/users/login",
+          data: {
+            email,
+            password
+          }
+        });
+        const { token, id } = res.data.data;
+        await setToken(token);
+        await this.$props.catchUser(id);
+        await localStorage.setItem("esxId", id);
+        this.loading = false;
+        this.$router.push("/");
+      } catch (e) {
+        this.error = e;
+        this.loading = false;
+      }
     }
   }
 };
