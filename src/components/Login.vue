@@ -5,17 +5,21 @@
       <v-text-field
         label="Email Address"
         v-model="email"
-        prepend-inner-icon="mdi-email"
+        prepend-icon="mdi-email"
       />
       <v-text-field
-        type="password"
+        :type="show ? 'text' : 'password'"
+        :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
         v-model="password"
         label="Password"
-        prepend-inner-icon="mdi-key"
+        prepend-icon="mdi-key"
+        @click:append="show = !show"
       />
       <v-btn
         color="primary"
         dark
+        :loading="loading"
+        type="submit"
       >
         <v-icon>mdi-login</v-icon> Sign In
       </v-btn>
@@ -35,11 +39,15 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      loading: false,
+      show: false
     };
   },
   methods: {
-    doLogin: async function() {}
+    doLogin: async function() {
+      this.loading = true;
+    }
   }
 };
 </script>
