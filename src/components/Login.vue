@@ -38,12 +38,14 @@ import axios from "axios";
 import { setToken } from "../services/tokenService";
 export default {
   name: "login",
+  props: {
+    catchUser: Function
+  },
   data() {
     return {
       email: "",
       password: "",
       loading: false,
-      success: false,
       show: false,
       error: null
     };
