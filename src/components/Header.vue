@@ -7,11 +7,23 @@
     <v-app-bar-nav-icon />
     <v-toolbar-title>Esports Experiences</v-toolbar-title>
     <v-spacer />
-    <v-btn text>
+    <v-btn
+      text
+      to="/login"
+    >
       <v-icon>mdi-login</v-icon> Login
     </v-btn>
-    <v-btn text>
+    <v-btn
+      text
+      to="/signup"
+    >
       <v-icon>mdi-account-plus</v-icon> Signup
     </v-btn>
   </v-app-bar>
 </template>
+
+<script>
+export default {
+  name: "header"
+};
+</script>
