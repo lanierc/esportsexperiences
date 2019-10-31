@@ -33,11 +33,26 @@
         v-model="location"
         prepend-icon="mdi-earth"
       />
+      <v-btn
+        color="primary"
+        dark
+        :loading="loading"
+        type="submit"
+      >
+        <v-icon>mdi-account-plus</v-icon> Register
+      </v-btn>
+      <v-btn
+        text
+        to="/"
+      >
+        <v-icon>mdi-arrow-left</v-icon> Back
+      </v-btn>
     </v-form>
   </v-container>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "signup",
   data() {
@@ -53,6 +68,42 @@ export default {
       loading: false,
       error: null
     };
+  },
+  methods: {
+    createAccount: async function() {
+      this.loading = true;
+      const {
+        username,
+        email,
+        password,
+        verifyPassword,
+        location
+      } = this.$data;
+      if (password !== verifyPassword) {
+        this.error = "Your passwords do not match.";
+        this.loading = false;
+        return;
+      }
+      try {
+        const res = await axios({
+          method: "POST",
+          url: "/api/users/signup",
+          data: {
+            username,
+            email,
+            password,
+            location
+          }
+        });
+        if (res) {
+          this.loading = false;
+          this.success = true;
+        }
+      } catch (e) {
+        this.error = e;
+        this.loading = false;
+      }
+    }
   }
 };
 </script>
