@@ -3,7 +3,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from mongoengine import *
 import os
-import datetime
+from datetime import datetime
 
 load_dotenv()
 
@@ -17,6 +17,14 @@ app.config.from_object(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
 
 connect(os.getenv('MONGODB_URI'))
+
+
+class User(Document):
+    join_date: DateTimeField(required=True, default=datetime.now())
+    username: StringField(required=True)
+    email: EmailField(required=True)
+    location: StringField(required=False)
+    role: StringField(required=True, default="User")
 
 
 @app.route('/', methods=['GET'])
