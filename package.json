@@ -61,5 +61,16 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "vue": {
+    "devServer": {
+      "proxy": {
+        "^/api": {
+          "target": "http://localhost:5000",
+          "ws": true,
+          "changeOrigin": true
+        }
+      }
+    }
+  }
 }
