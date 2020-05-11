@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "all": "concurrently --kill-others \"python api/app.py\" \"vue-cli-service serve\"",
-    "api": "python api/app.py"
+    "all": "concurrently --kill-others \"cd api && source env/bin/activate && python app.py\" \"vue-cli-service serve\"",
+    "api": "cd api && source env/bin/activate && python app.py"
   },
   "dependencies": {
     "axios": "^0.19.0",

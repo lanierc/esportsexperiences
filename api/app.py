@@ -23,6 +23,7 @@ connect(os.getenv('MONGODB_URI'))
 
 
 # Creating User Model
+# TODO: refactor this into separate file, along with user routes.
 class User(Document):
     join_date: DateTimeField(required=True, default=datetime.now())
     username: StringField(required=True)
