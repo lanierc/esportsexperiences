@@ -23,6 +23,7 @@ class User(Document):
     join_date: DateTimeField(required=True, default=datetime.now())
     username: StringField(required=True)
     email: EmailField(required=True)
+    password: StringField(required=True)
     location: StringField(required=False)
     role: StringField(required=True, default="User")
 
