@@ -1,5 +1,11 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
+from mongoengine import *
+import os
+import datetime
+
+load_dotenv()
 
 
 DEBUG = True
@@ -9,6 +15,8 @@ app.config.from_object(__name__)
 
 
 CORS(app, resources={r'/*': {'origins': '*'}})
+
+connect(os.getenv('MONGODB_URI'))
 
 
 @app.route('/', methods=['GET'])
