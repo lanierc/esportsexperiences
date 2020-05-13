@@ -42,8 +42,11 @@ def hello_world():
 
 @app.route('/api/users/signup', methods=['POST'])
 def create_user():
+    # grab data from frontend
     post_data = request.get_json()
+    # hash the password
     password = bcrypt.genpw(post_data.get('password'), bcrypt.gensalt())
+    # create the user document
     new_user = User(
         username=post_data.get('username'),
         email=post_data.get('email'),
@@ -51,7 +54,9 @@ def create_user():
         location=post_data.get('location'),
         role=post_data.get('role')
     )
+    # save to db
     new_user.save()
+    # return to user
     return jsonify({
         'status': 'success',
         'user': new_user
@@ -60,8 +65,12 @@ def create_user():
 
 @app.route('/api/users/login', methods=['POST'])
 def login_user():
+    # grab data from frontend
     post_data = request.get_json()
+    # grab the user from db based on email address
     user = User.objects.get(email=post_data.get('email'))
+    # check the password with that in the db, then return login
+    # TODO: return jwt to frontend
     if bcrypt.checkpw(post_data.get('password'), user['password']):
         return jsonify({
             'status': 'success',
