@@ -58,6 +58,17 @@ def create_user():
     })
 
 
+@app.route('/api/users/login', methods=['POST'])
+def login_user():
+    post_data = request.get_json()
+    user = User.objects.get(email=post_data.get('email'))
+    if bcrypt.checkpw(post_data.get('password'), user['password']):
+        return jsonify({
+            'status': 'success',
+            'message': 'logged in'
+        })
+
+
 # start the server
 if __name__ == '__main__':
     app.run()
