@@ -8,6 +8,8 @@ from datetime import datetime
 
 # Loading environmentals
 load_dotenv()
+secret = os.getenv('SECRET')
+mongodb_uri = os.getenv('MONGODB_URI')
 
 
 DEBUG = True
@@ -20,11 +22,12 @@ app.config.from_object(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
 
 # Connecting to MongoDB Atlas
-connect(os.getenv('MONGODB_URI'))
+connect(mongodb_uri)
 
 
 # Creating User Model
 # TODO: refactor this into separate file, along with user routes.
+# TODO: set 'active' default to False before production.
 class User(Document):
     join_date: DateTimeField(required=True, default=datetime.now())
     username: StringField(required=True)
@@ -32,6 +35,7 @@ class User(Document):
     password: StringField(required=True)
     location: StringField(required=False)
     role: StringField(required=True, default="User")
+    active: BooleanField(required=True, default=True)
 
 
 # Creating routes
