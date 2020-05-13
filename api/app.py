@@ -3,6 +3,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from mongoengine import *
 import os
+import bcrypt
 from datetime import datetime
 
 # Loading environmentals
@@ -37,6 +38,24 @@ class User(Document):
 @app.route('/', methods=['GET'])
 def hello_world():
     return jsonify('Hello World')
+
+
+@app.route('/api/users/signup', methods=['POST'])
+def create_user():
+    post_data = request.get_json()
+    password = bcrypt.genpw(post_data.get('password'), bcrypt.gensalt())
+    new_user = User(
+        username=post_data.get('username'),
+        email=post_data.get('email'),
+        password=password,
+        location=post_data.get('location'),
+        role=post_data.get('role')
+    )
+    new_user.save()
+    return jsonify({
+        'status': 'success',
+        'user': new_user
+    })
 
 
 # start the server
