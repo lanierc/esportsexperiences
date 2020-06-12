@@ -6,6 +6,7 @@ from flask_mongoengine import MongoEngine
 import os
 import bcrypt
 import json
+import jwt
 from datetime import datetime
 
 # Loading environmentals
@@ -88,9 +89,14 @@ def login_user():
     # check the password with that in the db, then return login
     if bcrypt.checkpw(password.encode('utf8'), user['password'].encode('utf8')):
         # TODO: return jwt to frontend
+        json_user = user.to_json()
+        token = jwt.encode({"user": json_user}, secret)
+        print(type(token))
         return jsonify({
             'status': 'success',
-            'message': 'logged in'
+            'message': 'logged in',
+            'token': token.decode('utf8'),
+            'data': user
         })
 
 
