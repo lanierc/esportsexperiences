@@ -85,7 +85,7 @@ def login_user():
     password = post_data.get('password')
     email = post_data.get('email')
     # grab the user from db based on email address
-    user = User.objects.get(email=email)
+    user = User.objects.get(email__iexact=email)
     # check the password with that in the db, then return login
     if bcrypt.checkpw(password.encode('utf8'), user['password'].encode('utf8')):
         # return jwt to frontend
