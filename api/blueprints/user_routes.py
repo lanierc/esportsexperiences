@@ -7,13 +7,14 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime
 
+# loading app secret
 load_dotenv()
 secret = os.getenv('SECRET')
 
+# defining blueprint
 user_routes = Blueprint('user_routes', __name__)
 
 # Creating User Model
-# TODO: refactor this into separate file, along with user routes.
 # TODO: set 'active' default to False before production.
 class User(me.Document):
     join_date = me.DateTimeField(required=True, default=datetime.now())
@@ -25,12 +26,7 @@ class User(me.Document):
     active = me.BooleanField(required=True, default=True)
 
 
-# Creating routes
-@user_routes.route('/api/', methods=['GET'])
-def hello_world():
-    return jsonify('Hello World')
-
-
+# creating user
 @user_routes.route('/api/users/signup', methods=['POST'])
 def create_user():
     # grab data from frontend
@@ -56,6 +52,7 @@ def create_user():
     })
 
 
+# sign-in user
 @user_routes.route('/api/users/login', methods=['POST'])
 def login_user():
     # grab data from frontend
@@ -77,6 +74,7 @@ def login_user():
             'data': user
         })
 
+# get single user by id
 @user_routes.route('/api/users/<id>')
 def get_single_user(id):
     user = User.objects.get(pk=id)
