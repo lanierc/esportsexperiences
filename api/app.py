@@ -81,11 +81,13 @@ def create_user():
 def login_user():
     # grab data from frontend
     post_data = request.get_json()
+    password = post_data.get('password')
+    email = post_data.get('email')
     # grab the user from db based on email address
-    user = User.objects.get(email=post_data.get('email'))
+    user = User.objects.get(email=email)
     # check the password with that in the db, then return login
-    # TODO: return jwt to frontend
-    if bcrypt.checkpw(post_data.get('password'), user['password']):
+    if bcrypt.checkpw(password.encode('utf8'), user['password'].encode('utf8')):
+        # TODO: return jwt to frontend
         return jsonify({
             'status': 'success',
             'message': 'logged in'
