@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
 from mongoengine import *
@@ -39,7 +39,7 @@ class User(Document):
 
 
 # Creating routes
-@app.route('/', methods=['GET'])
+@app.route('/api/', methods=['GET'])
 def hello_world():
     return jsonify('Hello World')
 
@@ -49,7 +49,7 @@ def create_user():
     # grab data from frontend
     post_data = request.get_json()
     # hash the password
-    password = bcrypt.genpw(post_data.get('password'), bcrypt.gensalt())
+    password = bcrypt.hashpw(post_data.get('password'), bcrypt.gensalt())
     # create the user document
     new_user = User(
         username=post_data.get('username'),

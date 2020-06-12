@@ -1,9 +1,6 @@
 <template>
   <v-app>
-    <Header
-      :user="this.user"
-      :role="this.role"
-    />
+    <Header :user="this.user" :role="this.role" />
     <v-content>
       <router-view :catchUser="catchUser" />
     </v-content>
@@ -13,16 +10,15 @@
 <script>
 import Header from "./components/Header";
 import axios from "axios";
-
 export default {
   name: "App",
   components: {
-    Header
+    Header,
   },
   data() {
     return {
       user: null,
-      role: null
+      role: null,
     };
   },
   beforeMount() {
@@ -46,7 +42,7 @@ export default {
         const { role } = userData.data.data;
         this.role = role;
       }
-    }
-  }
+    },
+  },
 };
 </script>

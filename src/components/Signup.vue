@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h2 class="display-1">Signup</h2>
-    <v-form>
+    <v-form @submit.prevent="createAccount">
       <v-text-field
         label="Email Address"
         v-model="email"
@@ -33,20 +33,10 @@
         v-model="location"
         prepend-icon="mdi-earth"
       />
-      <v-btn
-        color="primary"
-        dark
-        :loading="loading"
-        type="submit"
-      >
+      <v-btn color="primary" dark :loading="loading" type="submit">
         <v-icon>mdi-account-plus</v-icon> Register
       </v-btn>
-      <v-btn
-        text
-        to="/"
-      >
-        <v-icon>mdi-arrow-left</v-icon> Back
-      </v-btn>
+      <v-btn text to="/"> <v-icon>mdi-arrow-left</v-icon> Back </v-btn>
     </v-form>
   </v-container>
 </template>
@@ -66,7 +56,7 @@ export default {
       showVerify: false,
       success: false,
       loading: false,
-      error: null
+      error: null,
     };
   },
   methods: {
@@ -77,7 +67,7 @@ export default {
         email,
         password,
         verifyPassword,
-        location
+        location,
       } = this.$data;
       if (password !== verifyPassword) {
         this.error = "Your passwords do not match.";
@@ -92,8 +82,8 @@ export default {
             username,
             email,
             password,
-            location
-          }
+            location,
+          },
         });
         if (res) {
           this.loading = false;
@@ -103,7 +93,7 @@ export default {
         this.error = e;
         this.loading = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
