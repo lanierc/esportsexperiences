@@ -35,6 +35,7 @@
 
 <script>
 import axios from "axios";
+// eslint-disable-next-line no-unused-vars
 import { setToken } from "../services/tokenService";
 export default {
   name: "login",
@@ -63,7 +64,8 @@ export default {
             password
           }
         });
-        const { token, id } = res.data.data;
+        const { token } = res.data;
+        const id = res.data.data._id.$oid;
         await setToken(token);
         await this.$props.catchUser(id);
         await localStorage.setItem("esxId", id);
