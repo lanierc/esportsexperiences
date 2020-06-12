@@ -5,3 +5,4 @@ bcrypt==3.1.7
 python-dotenv==0.13.0
 pyjwt==1.7.1
 dnspython==1.16.0
+flask-mongoengine==0.9.5

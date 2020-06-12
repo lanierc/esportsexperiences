@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
-from mongoengine import *
+import mongoengine as me
+from flask_mongoengine import MongoEngine
 import os
 import bcrypt
+import json
 from datetime import datetime
 
 # Loading environmentals
@@ -24,20 +26,24 @@ app.config.from_object(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
 
 # Connecting to MongoDB Atlas
-connect( db="test", username=mongo_username, password=mongo_password, host=mongodb_uri )
+app.config['MONGODB_SETTINGS'] = {
+    'host': mongodb_uri
+}
+db = MongoEngine()
+db.init_app(app)
 
 
 # Creating User Model
 # TODO: refactor this into separate file, along with user routes.
 # TODO: set 'active' default to False before production.
-class User(Document):
-    join_date = DateTimeField(required=True, default=datetime.now())
-    username = StringField(required=True)
-    email = EmailField(required=True)
-    password = StringField(required=True)
-    location = StringField(required=False)
-    role = StringField(required=True, default="User")
-    active = BooleanField(required=True, default=True)
+class User(me.Document):
+    join_date = me.DateTimeField(required=True, default=datetime.now())
+    username = me.StringField(required=True)
+    email = me.EmailField(required=True)
+    password = me.StringField(required=True)
+    location = me.StringField(required=False)
+    role = me.StringField(required=True, default="User")
+    active = me.BooleanField(required=True, default=True)
 
 
 # Creating routes
@@ -66,7 +72,8 @@ def create_user():
     # return to user
     return jsonify({
         'status': 'success',
-        'message': 'User created'
+        'message': 'User created',
+        'data': new_user
     })
 
 
