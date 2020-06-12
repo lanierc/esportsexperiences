@@ -10,6 +10,8 @@ from datetime import datetime
 load_dotenv()
 secret = os.getenv('SECRET')
 mongodb_uri = os.getenv('MONGODB_URI')
+mongo_username = os.getenv('USERNAME')
+mongo_password = os.getenv('PASSWORD')
 
 
 DEBUG = True
@@ -22,20 +24,20 @@ app.config.from_object(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
 
 # Connecting to MongoDB Atlas
-connect(mongodb_uri)
+connect( db="test", username=mongo_username, password=mongo_password, host=mongodb_uri )
 
 
 # Creating User Model
 # TODO: refactor this into separate file, along with user routes.
 # TODO: set 'active' default to False before production.
 class User(Document):
-    join_date: DateTimeField(required=True, default=datetime.now())
-    username: StringField(required=True)
-    email: EmailField(required=True)
-    password: StringField(required=True)
-    location: StringField(required=False)
-    role: StringField(required=True, default="User")
-    active: BooleanField(required=True, default=True)
+    join_date = DateTimeField(required=True, default=datetime.now())
+    username = StringField(required=True)
+    email = EmailField(required=True)
+    password = StringField(required=True)
+    location = StringField(required=False)
+    role = StringField(required=True, default="User")
+    active = BooleanField(required=True, default=True)
 
 
 # Creating routes
@@ -49,12 +51,13 @@ def create_user():
     # grab data from frontend
     post_data = request.get_json()
     # hash the password
-    password = bcrypt.hashpw(post_data.get('password'), bcrypt.gensalt())
+    password = post_data.get('password')
+    hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
     # create the user document
     new_user = User(
         username=post_data.get('username'),
         email=post_data.get('email'),
-        password=password,
+        password=hashed_password,
         location=post_data.get('location'),
         role=post_data.get('role')
     )
