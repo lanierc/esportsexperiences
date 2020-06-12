@@ -13,7 +13,7 @@ mongodb_uri = os.getenv('MONGODB_URI')
 mongo_username = os.getenv('USERNAME')
 mongo_password = os.getenv('PASSWORD')
 
-
+# TODO: Set to false in production
 DEBUG = True
 
 # Creating flask instance for routing
@@ -66,7 +66,7 @@ def create_user():
     # return to user
     return jsonify({
         'status': 'success',
-        'user': new_user
+        'message': 'User created'
     })
 
 
