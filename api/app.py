@@ -88,7 +88,7 @@ def login_user():
     user = User.objects.get(email=email)
     # check the password with that in the db, then return login
     if bcrypt.checkpw(password.encode('utf8'), user['password'].encode('utf8')):
-        # TODO: return jwt to frontend
+        # return jwt to frontend
         json_user = user.to_json()
         token = jwt.encode({"user": json_user}, secret)
         print(type(token))
@@ -98,6 +98,14 @@ def login_user():
             'token': token.decode('utf8'),
             'data': user
         })
+
+@app.route('/api/users/<id>')
+def get_single_user(id):
+    user = User.objects.get(pk=id)
+    return jsonify({
+        'status': 'success',
+        'data': user
+    })
 
 
 # start the server
