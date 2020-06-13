@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 import mongoengine as me
-from datetime import datetime
 
 event_routes = Blueprint('event_routes', __name__)
 

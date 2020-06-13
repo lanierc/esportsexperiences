@@ -66,7 +66,6 @@ def login_user():
         # return jwt to frontend
         json_user = user.to_json()
         token = jwt.encode({"user": json_user}, secret)
-        print(type(token))
         return jsonify({
             'status': 'success',
             'message': 'logged in',
