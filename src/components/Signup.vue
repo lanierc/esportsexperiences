@@ -29,14 +29,29 @@
         prepend-icon="mdi-account"
       />
       <v-text-field
+        label="Real Name"
+        v-model="realName"
+        prepend-icon="mdi-account-details"
+      />
+      <v-text-field
         label="Location"
         v-model="location"
         prepend-icon="mdi-earth"
       />
-      <v-btn color="primary" dark :loading="loading" type="submit">
+      <v-btn
+        color="primary"
+        dark
+        :loading="loading"
+        type="submit"
+      >
         <v-icon>mdi-account-plus</v-icon> Register
       </v-btn>
-      <v-btn text to="/"> <v-icon>mdi-arrow-left</v-icon> Back </v-btn>
+      <v-btn
+        text
+        to="/"
+      >
+        <v-icon>mdi-arrow-left</v-icon> Back
+      </v-btn>
     </v-form>
   </v-container>
 </template>
@@ -57,6 +72,7 @@ export default {
       success: false,
       loading: false,
       error: null,
+      realName: ""
     };
   },
   methods: {
@@ -68,6 +84,7 @@ export default {
         password,
         verifyPassword,
         location,
+        realName: real_name
       } = this.$data;
       if (password !== verifyPassword) {
         this.error = "Your passwords do not match.";
@@ -83,7 +100,8 @@ export default {
             email,
             password,
             location,
-          },
+            real_name
+          }
         });
         if (res) {
           this.loading = false;
@@ -93,7 +111,7 @@ export default {
         this.error = e;
         this.loading = false;
       }
-    },
-  },
+    }
+  }
 };
 </script>
