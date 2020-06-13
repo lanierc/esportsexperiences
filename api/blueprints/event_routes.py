@@ -13,7 +13,7 @@ class Event(me.Document):
     twitter = me.StringField(required=False)
     instagram = me.StringField(required=False)
     genre = me.StringField(required=False)
-    reviews me.ListField(me.ReferenceField(User))
+    reviews = me.ListField(me.ReferenceField(Review))
 
 
 # create event

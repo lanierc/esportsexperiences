@@ -1,5 +1,4 @@
 from blueprints.user_routes import User
-from blueprints.event_routes import Event
 from flask import Blueprint, jsonify, request
 import mongoengine as me
 from datetime import datetime
