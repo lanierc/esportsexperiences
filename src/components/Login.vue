@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h2 class="display-1">Login</h2>
-    <v-form @submit.prevent="doLogin">
+    <v-form @submit.prevent="loginSubmit">
       <v-text-field
         label="Email Address"
         v-model="email"
@@ -34,47 +34,28 @@
 </template>
 
 <script>
-import axios from "axios";
-// eslint-disable-next-line no-unused-vars
-import { setToken } from "../services/tokenService";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "login",
   props: {
     catchUser: Function
   },
+  computed: {
+    ...mapState(["errorMessage", "loggingIn"])
+  },
   data() {
     return {
       email: "",
       password: "",
-      loading: false,
-      show: false,
-      error: null
+      show: false
     };
   },
   methods: {
-    doLogin: async function() {
-      this.loading = true;
+    ...mapActions(["doLogin"]),
+    loginSubmit: function() {
       const { email, password } = this.$data;
-      try {
-        const res = await axios({
-          method: "POST",
-          url: "/api/users/login",
-          data: {
-            email,
-            password
-          }
-        });
-        const { token } = res.data;
-        const id = res.data.data._id.$oid;
-        await setToken(token);
-        await this.$props.catchUser(id);
-        await localStorage.setItem("esxId", id);
-        this.loading = false;
-        this.$router.push("/");
-      } catch (e) {
-        this.error = e;
-        this.loading = false;
-      }
+      const loginData = { email, password };
+      this.doLogin(loginData);
     }
   }
 };

@@ -25,11 +25,13 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
-  name: "header",
-  props: {
-    user: String,
-    role: String
+  computed: {
+    ...mapState(["user", "role", "showMenu"])
+  },
+  methods: {
+    ...mapActions(["doLogout", "openMenu", "closeMenu"])
   }
 };
 </script>
