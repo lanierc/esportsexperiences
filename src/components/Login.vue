@@ -18,7 +18,7 @@
       <v-btn
         color="primary"
         dark
-        :loading="loading"
+        :loading="loggingIn"
         type="submit"
       >
         <v-icon>mdi-login</v-icon> Sign In

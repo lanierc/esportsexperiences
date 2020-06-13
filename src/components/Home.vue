@@ -1,10 +1,9 @@
 <template>
-  <div class="home">
-    <img
-      alt="Vue logo"
-      src="../assets/logo.png"
-    >
-  </div>
+  <v-container>
+    <div class="home">
+      <h1>Esports Experiences</h1>
+    </div>
+  </v-container>
 </template>
 
 <script>
