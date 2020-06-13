@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from blueprints.review_routes import Review
 import mongoengine as me
 
 event_routes = Blueprint('event_routes', __name__)
@@ -12,6 +13,7 @@ class Event(me.Document):
     twitter = me.StringField(required=False)
     instagram = me.StringField(required=False)
     genre = me.StringField(required=False)
+    reviews me.ListField(me.ReferenceField(User))
 
 
 # create event
