@@ -39,3 +39,12 @@ def create_event():
         'message': 'Event created',
         'data': new_event
     })
+
+# get all events
+@event_routes.route('/', methods=['GET'])
+def get_all_events():
+    events = Event.objects()
+    return jsonify({
+      'status': 'success',
+      'data': events
+    })
