@@ -21,6 +21,13 @@
     >
       <v-icon>mdi-account-plus</v-icon> Signup
     </v-btn>
+    <v-btn
+      text
+      @click.prevent="doLogout"
+      v-if="user"
+    >
+      <v-icon>mdi-logout</v-icon> Logout
+    </v-btn>
   </v-app-bar>
 </template>
 
