@@ -27,7 +27,7 @@ db = MongoEngine()
 db.init_app(app)
 
 # register routes
-app.register_blueprint(user_routes)
+app.register_blueprint(user_routes, url_prefix='/api/users')
 
 
 # start the server

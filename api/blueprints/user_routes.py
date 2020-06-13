@@ -27,7 +27,7 @@ class User(me.Document):
 
 
 # creating user
-@user_routes.route('/api/users/signup', methods=['POST'])
+@user_routes.route('/signup', methods=['POST'])
 def create_user():
     # grab data from frontend
     post_data = request.get_json()
@@ -53,7 +53,7 @@ def create_user():
 
 
 # sign-in user
-@user_routes.route('/api/users/login', methods=['POST'])
+@user_routes.route('/login', methods=['POST'])
 def login_user():
     # grab data from frontend
     post_data = request.get_json()
@@ -75,7 +75,7 @@ def login_user():
         })
 
 # get single user by id
-@user_routes.route('/api/users/<id>')
+@user_routes.route('/<id>')
 def get_single_user(id):
     user = User.objects.get(pk=id)
     return jsonify({
