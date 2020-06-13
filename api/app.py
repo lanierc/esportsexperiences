@@ -1,6 +1,7 @@
 from flask import Flask
 from blueprints.user_routes import user_routes
 from blueprints.event_routes import event_routes
+from blueprints.review_routes import review_routes
 from flask_cors import CORS
 from dotenv import load_dotenv
 from flask_mongoengine import MongoEngine
@@ -30,6 +31,7 @@ db.init_app(app)
 # register routes
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(event_routes, url_prefix='/api/events')
+app.register_blueprint(review_routes, url_prefix='/api/reviews')
 
 
 # start the server
