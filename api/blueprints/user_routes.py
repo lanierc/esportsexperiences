@@ -24,6 +24,7 @@ class User(me.Document):
     location = me.StringField(required=False)
     role = me.StringField(required=True, default="User")
     active = me.BooleanField(required=True, default=True)
+    real_name = me.StringField(required=True)
 
 
 # creating user
@@ -40,7 +41,8 @@ def create_user():
         email=post_data.get('email'),
         password=hashed_password,
         location=post_data.get('location'),
-        role=post_data.get('role')
+        role=post_data.get('role'),
+        real_name=post_data.get('real_name')
     )
     # save to db
     new_user.save()
