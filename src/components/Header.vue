@@ -23,6 +23,13 @@
     </v-btn>
     <v-btn
       text
+      to="/add-event"
+      v-if="user && role === 'Admin'"
+    >
+      <v-icon>mdi-plus</v-icon> Add Event
+    </v-btn>
+    <v-btn
+      text
       @click.prevent="doLogout"
       v-if="user"
     >

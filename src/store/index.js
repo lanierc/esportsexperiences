@@ -69,9 +69,11 @@ export default new Vuex.Store({
     },
     checkUser: async ({ commit }) => {
       const id = localStorage.getItem("esxId");
-      const res = await axios.get(`/api/users/${id}`);
-      const { role } = res.data.data;
-      commit("updateUser", { id, role });
+      if (id !== null) {
+        const res = await axios.get(`/api/users/${id}`);
+        const { role } = res.data.data;
+        commit("updateUser", { id, role });
+      }
     },
   },
   modules: {},
