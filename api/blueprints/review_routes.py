@@ -11,3 +11,32 @@ class Review(me.Document):
     rating = me.IntField(required=True, min_value=0, max_value=10)
     title = me.StringField(required=True)
     body = me.StringField(required=True)
+    years_attended = me.ListField(me.IntField(min_value=4, max_value=4), required=True)
+
+
+# create review
+@review_routes.route('', methods=["POST"])
+def create_route():
+    # get request data
+    post_data = request.get_json()
+    # get user id
+    user_id = post_data.get('user')
+    # grab user by id, and check role
+    user = User.objects.get(pk=user_id)
+    role = user.role
+    # if user is not banned, create the document
+    if role != 'Banned':
+        review = Review(
+            user=user_id,
+            rating=post_data.get('rating'),
+            title=post_data.get('title'),
+            body=post_data.get('body'),
+            years_attended=post_data.get('years_attended')
+        )
+        # save to db
+        review.save()
+        # return to user
+        return jsonify({
+            'status': 'success',
+            'data': 'review'
+        })
