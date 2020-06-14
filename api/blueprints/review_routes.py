@@ -38,5 +38,14 @@ def create_route():
         # return to user
         return jsonify({
             'status': 'success',
-            'data': 'review'
+            'data': review
         })
+
+# get review by id
+@review_routes.route('/<id>', methods=["GET"])
+def get_single_review(id):
+    review = Review.objects.get(pk=id)
+    return jsonify({
+        'status': 'success',
+        'data': review
+    })
