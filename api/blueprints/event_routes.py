@@ -30,7 +30,7 @@ def create_event():
     if role == 'Admin':
         # create the event document
         new_event = Event(
-            name=post_data.get('name'),
+            name=post_data.get('name', unique=True),
             location=post_data.get('location'),
             description=post_data.get('description'),
             website=post_data.get('website'),

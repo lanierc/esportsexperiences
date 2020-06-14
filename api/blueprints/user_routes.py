@@ -18,8 +18,8 @@ user_routes = Blueprint('user_routes', __name__)
 # TODO: set 'active' default to False before production.
 class User(me.Document):
     join_date = me.DateTimeField(required=True, default=datetime.now())
-    username = me.StringField(required=True)
-    email = me.EmailField(required=True)
+    username = me.StringField(required=True, unique=True)
+    email = me.EmailField(required=True, unique=True)
     password = me.StringField(required=True)
     location = me.StringField(required=False)
     role = me.StringField(required=True, default="User")
