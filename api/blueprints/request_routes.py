@@ -25,6 +25,6 @@ class Request(me.Document):
 def get_all_requests():
     requests = Request.objects()
     return jsonify({
-      'status': 'success',
-      'data': requests
+        'status': 'success',
+        'data': requests
     })

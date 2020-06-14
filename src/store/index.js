@@ -13,6 +13,7 @@ export default new Vuex.Store({
     user: null,
     role: null,
     showMenu: false,
+    events: [],
   },
   mutations: {
     loginStart: (state) => {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
     },
     updateMenu: (state, bool) => {
       state.showMenu = bool;
+    },
+    setEvents: (state, arr) => {
+      state.events = arr;
     },
   },
   actions: {
@@ -104,6 +108,13 @@ export default new Vuex.Store({
         },
       });
       console.log(res.data.data);
+    },
+    getEvents: async ({ commit }) => {
+      const res = await axios({
+        method: "GET",
+        url: "/api/events/",
+      });
+      commit("setEvents", res.data.data);
     },
   },
   modules: {},
