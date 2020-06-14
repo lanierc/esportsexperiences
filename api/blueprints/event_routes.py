@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from blueprints.user_routes import User
 from blueprints.review_routes import Review
 import mongoengine as me
 
@@ -21,25 +22,31 @@ class Event(me.Document):
 def create_event():
     # grab data from frontend
     post_data = request.get_json()
-    # create the event document
-    new_event = Event(
-        name=post_data.get('name'),
-        location=post_data.get('location'),
-        description=post_data.get('description'),
-        website=post_data.get('website'),
-        facebook=post_data.get('facebook'),
-        twitter=post_data.get('twitter'),
-        instagram=post_data.get('instagram'),
-        genre=post_data.get('genre')
-    )
-    # save to db
-    new_event.save()
-    # return to user
-    return jsonify({
-        'status': 'success',
-        'message': 'Event created',
-        'data': new_event
-    })
+    # grab user id
+    user_id = post_data.get('user')
+    # query user and check role
+    user = User.objects.get(pk=user_id)
+    role = user.get('role')
+    if role == 'Admin':
+        # create the event document
+        new_event = Event(
+            name=post_data.get('name'),
+            location=post_data.get('location'),
+            description=post_data.get('description'),
+            website=post_data.get('website'),
+            facebook=post_data.get('facebook'),
+            twitter=post_data.get('twitter'),
+            instagram=post_data.get('instagram'),
+            genre=post_data.get('genre')
+        )
+        # save to db
+        new_event.save()
+        # return to user
+        return jsonify({
+            'status': 'success',
+            'message': 'Event created',
+            'data': new_event
+        })
 
 # get all events
 @event_routes.route('/', methods=['GET'])
