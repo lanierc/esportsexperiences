@@ -80,6 +80,37 @@ export default {
   },
   computed: {
     ...mapState(["user", "role"])
+  },
+  methods: {
+    submitEvent: async () => {
+      const { name, location, description, genre } = this.$data;
+      let { website, facebook, twitter, instagram } = this.$data;
+      const websiteIndex =
+        website.indexOf("http://") || website.indexOf("https://");
+      if (websiteIndex === -1) {
+        website = `http://${website}`;
+      }
+      const facebookIndex =
+        facebook.indexOf("https://") || facebook.indexOf("http://");
+      if (facebookIndex === -1) {
+        facebook = `https://${facebook}`;
+      }
+      const twitterIndexInsecure = twitter.indexOf("http://twitter.com/");
+      const twitterIndexSecure = twitter.indexOf("https://twitter.com/");
+      if (twitterIndexInsecure !== -1) {
+        twitter.replace("http://twitter.com/", "");
+      } else if (twitterIndexSecure !== -1) {
+        twitter.replace("https://twitter.com/", "");
+      }
+      const instagramIndexInsecure = instagram.indexOf("http://instagram.com/");
+      const instagramIndexSecure = instagram.indexOf("https://instagram.com/");
+      if (instagramIndexInsecure !== -1) {
+        instagram.replace("http://instagram.com", "");
+      } else if (instagramIndexSecure !== -1) {
+        instagram.replace("https://instagram.com", "");
+      }
+      console.log(name, location, description, genre);
+    }
   }
 };
 </script>
