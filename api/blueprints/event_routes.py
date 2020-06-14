@@ -15,6 +15,7 @@ class Event(me.Document):
     instagram = me.StringField(required=False)
     genre = me.StringField(required=False)
     reviews = me.ListField(me.ReferenceField(Review))
+    owner = me.ReferenceField(me.ReferenceField(User))
 
 
 # create event
