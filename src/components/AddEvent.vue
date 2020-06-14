@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "add-event",
   data() {
@@ -82,8 +82,10 @@ export default {
     ...mapState(["user", "role"])
   },
   methods: {
-    submitEvent: async () => {
+    ...mapActions(["addEvent"]),
+    submitEvent: function() {
       const { name, location, description, genre } = this.$data;
+      const { user, role } = this;
       let { website, facebook, twitter, instagram } = this.$data;
       const websiteIndex =
         website.indexOf("http://") || website.indexOf("https://");
@@ -109,7 +111,19 @@ export default {
       } else if (instagramIndexSecure !== -1) {
         instagram.replace("https://instagram.com", "");
       }
-      console.log(name, location, description, genre);
+      const submitData = {
+        name,
+        location,
+        description,
+        genre,
+        user,
+        role,
+        website,
+        facebook,
+        instagram,
+        twitter
+      };
+      this.addEvent(submitData);
     }
   }
 };

@@ -75,6 +75,9 @@ export default new Vuex.Store({
         commit("updateUser", { id, role });
       }
     },
+    addEvent: async (formData) => {
+      console.log(formData);
+    },
   },
   modules: {},
 });

@@ -2,7 +2,7 @@
   <v-app>
     <Header />
     <v-content>
-      <router-view :catchUser="catchUser" />
+      <router-view />
     </v-content>
   </v-app>
 </template>
