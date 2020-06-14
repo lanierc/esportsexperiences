@@ -76,10 +76,19 @@ def login_user():
         })
 
 # get single user by id
-@user_routes.route('/<id>')
+@user_routes.route('/<id>', methods=['GET'])
 def get_single_user(id):
     user = User.objects.get(pk=id)
     return jsonify({
         'status': 'success',
         'data': user
+    })
+
+# get all users
+@user_routes.route('/', methods=['GET'])
+def get_all_users():
+    users = User.objects()
+    return jsonify({
+        'status': 'success',
+        'data': users
     })
