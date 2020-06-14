@@ -19,6 +19,7 @@ class Review(me.Document):
 # create review
 @review_routes.route('', methods=["POST"])
 def create_route():
+    from blueprints.event_routes import Event
     # get request data
     post_data = request.get_json()
     # get user id
