@@ -53,6 +53,6 @@ def create_event():
 def get_all_events():
     events = Event.objects()
     return jsonify({
-      'status': 'success',
-      'data': events
+        'status': 'success',
+        'data': events
     })
