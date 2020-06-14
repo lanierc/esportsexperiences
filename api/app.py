@@ -9,6 +9,7 @@ from blueprints.user_routes import user_routes
 from blueprints.event_routes import event_routes
 from blueprints.review_routes import review_routes
 from blueprints.request_routes import request_routes
+from blueprints.response_routes import response_routes
 
 # Loading environmentals
 load_dotenv()
@@ -36,6 +37,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(event_routes, url_prefix='/api/events')
 app.register_blueprint(review_routes, url_prefix='/api/reviews')
 app.register_blueprint(request_routes, url_prefix='/api/requests')
+app.register_blueprint(response_routes, url_prefix='/api/responses')
 
 
 # start the server

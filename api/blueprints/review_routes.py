@@ -1,4 +1,5 @@
 from blueprints.user_routes import User
+from blueprints.response_routes import Response
 from flask import Blueprint, jsonify, request
 import mongoengine as me
 from datetime import datetime
@@ -12,6 +13,7 @@ class Review(me.Document):
     title = me.StringField(required=True)
     body = me.StringField(required=True)
     years_attended = me.ListField(me.IntField(min_value=4, max_value=4), required=True)
+    responses = me.ListField(me.ReferenceField(Response))
 
 
 # create review
