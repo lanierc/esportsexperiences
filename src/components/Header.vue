@@ -9,6 +9,12 @@
     <v-spacer />
     <v-btn
       text
+      to="/"
+    >
+      <v-icon>mdi-home</v-icon> Home
+    </v-btn>
+    <v-btn
+      text
       to="/login"
       v-if="!user"
     >
