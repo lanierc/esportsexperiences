@@ -56,3 +56,12 @@ def get_all_events():
         'status': 'success',
         'data': events
     })
+
+# get single event
+@event_routes.route('/<id>', methods=['GET'])
+def get_single_event(id):
+    event = Event.objects.get(pk=id)
+    return jsonify({
+        'status': 'success'
+        'data': event
+    })
