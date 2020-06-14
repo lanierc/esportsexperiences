@@ -26,7 +26,7 @@ def create_event():
     user_id = post_data.get('user')
     # query user and check role
     user = User.objects.get(pk=user_id)
-    role = user.get('role')
+    role = user.role
     if role == 'Admin':
         # create the event document
         new_event = Event(

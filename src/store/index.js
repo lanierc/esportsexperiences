@@ -90,7 +90,7 @@ export default new Vuex.Store({
       } = formData;
       const res = await axios({
         method: "POST",
-        url: "/api/events",
+        url: "/api/events/",
         data: {
           user,
           name,
