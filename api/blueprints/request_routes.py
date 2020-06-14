@@ -18,3 +18,13 @@ class Request(me.Document):
     instagram = me.StringField(required=False)
     genre = me.StringField(required=False)
     proof = me.StringField(required=True)
+
+
+# get all requests
+@request_routes.route('', methods=['GET'])
+def get_all_requests():
+    requests = Request.objects()
+    return jsonify({
+      'status': 'success',
+      'data': requests
+    })

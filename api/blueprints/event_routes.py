@@ -62,6 +62,6 @@ def get_all_events():
 def get_single_event(id):
     event = Event.objects.get(pk=id)
     return jsonify({
-        'status': 'success'
+        'status': 'success',
         'data': event
     })
