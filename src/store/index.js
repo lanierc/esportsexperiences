@@ -75,8 +75,35 @@ export default new Vuex.Store({
         commit("updateUser", { id, role });
       }
     },
-    addEvent: async (formData) => {
-      console.log(formData);
+    // eslint-disable-next-line no-unused-vars
+    addEvent: async ({ commit }, formData) => {
+      const {
+        user,
+        name,
+        location,
+        description,
+        genre,
+        facebook,
+        twitter,
+        instagram,
+        website,
+      } = formData;
+      const res = await axios({
+        method: "POST",
+        url: "/api/events",
+        data: {
+          user,
+          name,
+          location,
+          description,
+          genre,
+          facebook,
+          twitter,
+          instagram,
+          website,
+        },
+      });
+      console.log(res.data.data);
     },
   },
   modules: {},
