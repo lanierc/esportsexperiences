@@ -19,6 +19,7 @@ class Review(me.Document):
 # create review
 @review_routes.route('', methods=["POST"])
 def create_route():
+    # defered model import of Event class to bypass circular import error
     from blueprints.event_routes import Event
     # get request data
     post_data = request.get_json()
@@ -38,6 +39,12 @@ def create_route():
         )
         # save to db
         review.save()
+        # grab review and event ids
+        review_id = review._id
+        event_id = post_data.get('event')
+        # get event
+        event = Event.objects.get(pk=event)
+        # TODO: link review id to event
         # return to user
         return jsonify({
             'status': 'success',
