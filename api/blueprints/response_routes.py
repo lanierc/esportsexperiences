@@ -13,6 +13,7 @@ class Response(me.Document):
 
 @response_routes.route('', methods=["POST"])
 def create_response():
+    # deferred import of Review model to avoid circular import error
     from blueprints.review_routes import Review
     post_data = request.get_json()
     user_id = post_data.get('user')

@@ -85,7 +85,7 @@ def get_single_user(id):
     })
 
 # get all users
-@user_routes.route('/', methods=['GET'])
+@user_routes.route('', methods=['GET'])
 def get_all_users():
     users = User.objects()
     return jsonify({
