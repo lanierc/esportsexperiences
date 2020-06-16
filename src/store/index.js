@@ -94,7 +94,7 @@ export default new Vuex.Store({
       } = formData;
       const res = await axios({
         method: "POST",
-        url: "/api/events/",
+        url: "/api/events",
         data: {
           user,
           name,
@@ -112,7 +112,7 @@ export default new Vuex.Store({
     getEvents: async ({ commit }) => {
       const res = await axios({
         method: "GET",
-        url: "/api/events/",
+        url: "/api/events",
       });
       commit("setEvents", res.data.data);
     },

@@ -19,7 +19,7 @@ class Event(me.Document):
 
 
 # create event
-@event_routes.route('/', methods=['POST'])
+@event_routes.route('', methods=['POST'])
 def create_event():
     # grab data from frontend
     post_data = request.get_json()
@@ -50,7 +50,7 @@ def create_event():
         })
 
 # get all events
-@event_routes.route('/', methods=['GET'])
+@event_routes.route('', methods=['GET'])
 def get_all_events():
     events = Event.objects()
     return jsonify({
