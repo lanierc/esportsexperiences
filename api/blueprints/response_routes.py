@@ -17,3 +17,11 @@ def create_response():
     from blueprints.review_routes import Review
     post_data = request.get_json()
     user_id = post_data.get('user')
+
+@response_routes.route('', methods=['GET'])
+def get_all_responses():
+    responses = Response.objects()
+    return jsonify({
+        'status': 'success',
+        'data': responses
+    })
