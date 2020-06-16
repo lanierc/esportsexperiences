@@ -59,3 +59,11 @@ def get_single_review(id):
         'status': 'success',
         'data': review
     })
+
+@review_routes.route('', methods=["GET"])
+def get_all_reviews():
+    reviews = Review.objects()
+    return jsonify({
+        'status': 'success',
+        'data': reviews
+    })
