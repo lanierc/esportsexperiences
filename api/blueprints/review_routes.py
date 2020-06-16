@@ -45,7 +45,7 @@ def create_route():
         # get event
         event = Event.objects.get(pk=event_id)
         # link review id to event
-        event.update(push__review(review_id))
+        event.update(push__reviews(review_id))
         # return to user
         return jsonify({
             'status': 'success',
