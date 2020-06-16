@@ -40,11 +40,12 @@ def create_route():
         # save to db
         review.save()
         # grab review and event ids
-        review_id = review._id
+        review_id = review.id
         event_id = post_data.get('event')
         # get event
         event = Event.objects.get(pk=event_id)
-        # TODO: link review id to event
+        # link review id to event
+        event.update(push__review(review_id))
         # return to user
         return jsonify({
             'status': 'success',
