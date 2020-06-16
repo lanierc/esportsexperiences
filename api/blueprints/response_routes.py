@@ -7,7 +7,7 @@ response_routes = Blueprint('response_routes', __name__)
 
 class Response(me.Document):
     user = me.ReferenceField(User, required=True)
-    response_data = me.DateTimeField(required=True, default=datetime.now())
+    response_date = me.DateTimeField(required=True, default=datetime.now())
     body = me.StringField(required=True)
 
 
@@ -32,7 +32,6 @@ def create_response():
     if user.role == 'Admin' or user_id == event.owner or user_id == event.user:
         response = Response(
             user=user_id,
-            response_data=post_data.get('response_data'),
             body=post_data.get('body')
         )
         response.save()
