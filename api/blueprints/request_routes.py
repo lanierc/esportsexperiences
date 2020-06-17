@@ -28,3 +28,16 @@ def get_all_requests():
         'status': 'success',
         'data': requests
     })
+
+@request_routes.route('/<id>', methods=['DELETE'])
+def delete_request(id):
+    delete_request = Request.objects.get(pk=id)
+    post_data = request.get_json()
+    user_id = post_data.json('user')
+    user = User.objects.get(pk=user_id)
+    if user.role == 'Admin':
+        delete_request.delete()
+        return jsonify({
+            'status': 'success',
+            'message': 'request deleted'
+        })
