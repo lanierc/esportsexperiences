@@ -13,6 +13,12 @@
           label="Event Location"
           prepend-icon="mdi-earth"
         />
+        <v-select
+          :items="types"
+          v-model="type"
+          label="Event Type"
+          prepend-icon="mdi-palette-swatch"
+        />
         <v-textarea
           label="Description"
           v-model="description"
@@ -67,6 +73,7 @@ export default {
       twitter: "",
       instagram: "",
       genre: "",
+      type: "",
       loading: false,
       genres: [
         "Fighting Games",
@@ -75,6 +82,14 @@ export default {
         "Hearthstone",
         "FPS",
         "Various"
+      ],
+      types: [
+        "Weekly/Biweekly Local",
+        "Monthly Local",
+        "Regional",
+        "Major",
+        "Super Major",
+        "Invitational"
       ]
     };
   },
@@ -84,7 +99,7 @@ export default {
   methods: {
     ...mapActions(["addEvent"]),
     submitEvent: function() {
-      const { name, location, description, genre } = this.$data;
+      const { name, location, description, genre, type } = this.$data;
       const { user, role } = this;
       let { website, facebook, twitter, instagram } = this.$data;
       const websiteIndex =
@@ -116,6 +131,7 @@ export default {
         location,
         description,
         genre,
+        type,
         user,
         role,
         website,

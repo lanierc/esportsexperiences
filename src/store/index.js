@@ -91,6 +91,7 @@ export default new Vuex.Store({
         twitter,
         instagram,
         website,
+        type: event_type,
       } = formData;
       const res = await axios({
         method: "POST",
@@ -105,6 +106,7 @@ export default new Vuex.Store({
           twitter,
           instagram,
           website,
+          event_type,
         },
       });
       console.log(res.data.data);
