@@ -61,6 +61,7 @@ def get_single_review(id):
         'data': review
     })
 
+# get all reviews
 @review_routes.route('', methods=["GET"])
 def get_all_reviews():
     reviews = Review.objects()
@@ -68,3 +69,17 @@ def get_all_reviews():
         'status': 'success',
         'data': reviews
     })
+
+# delete a review
+@review_routes.route('/<id>', methods=["DELETE"])
+def delete_review(id):
+    review = Review.objects.get(pk=id)
+    post_data = request.get_json()
+    user_id = post_data.get('user')
+    user = User.objects.get(pk=user_id)
+    if user_id == review.user or user.role == 'Admin':
+        review.delete()
+        return jsonify({
+            'status': 'success',
+            'message': 'review deleted'
+        })
