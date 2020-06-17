@@ -43,7 +43,7 @@ def create_response():
             data: response
         })
 
-
+# get all responses
 @response_routes.route('', methods=['GET'])
 def get_all_responses():
     responses = Response.objects()
@@ -51,3 +51,22 @@ def get_all_responses():
         'status': 'success',
         'data': responses
     })
+
+# delete a response
+@response_routes.route('/<id>', methods=['DELETE'])
+def delete_response(id):
+    from blueprints.review_routes import Review
+    response = Response.objects.get(pk=id)
+    post_data = request.get_json()
+    user_id = post_data.get('user')
+    review_id = post_data.get('review')
+    user = User.objects.get(pk=user_id)
+    review = Review.objects.get(pk=review_id)
+    # if the user is the author of the post or an admin, delete response and unlink it from the review
+    if user_id == review.user or user.role == 'Admin':
+        review.update(pull__responses=id)
+        response.delete()
+        return jsonify({
+            'status': 'success',
+            'message': 'Response deleted'
+        })
