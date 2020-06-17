@@ -8,6 +8,7 @@ event_routes = Blueprint('event_routes', __name__)
 class Event(me.Document):
     name = me.StringField(required=True, unique=True)
     location = me.StringField(required=False)
+    event_type = me.StringField(required=False)
     description = me.StringField(required=False)
     website = me.StringField(required=False)
     facebook = me.StringField(required=False)
@@ -39,6 +40,7 @@ def create_event():
             twitter=post_data.get('twitter'),
             instagram=post_data.get('instagram'),
             genre=post_data.get('genre')
+            event_type=post.data.get('event_type')
         )
         # save to db
         new_event.save()

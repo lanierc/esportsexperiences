@@ -29,6 +29,7 @@ def get_all_requests():
         'data': requests
     })
 
+# delete request
 @request_routes.route('/<id>', methods=['DELETE'])
 def delete_request(id):
     delete_request = Request.objects.get(pk=id)
