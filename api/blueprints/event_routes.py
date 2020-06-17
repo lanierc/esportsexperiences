@@ -6,7 +6,7 @@ import mongoengine as me
 event_routes = Blueprint('event_routes', __name__)
 
 class Event(me.Document):
-    name = me.StringField(required=True)
+    name = me.StringField(required=True, unique=True)
     location = me.StringField(required=False)
     description = me.StringField(required=False)
     website = me.StringField(required=False)
@@ -31,7 +31,7 @@ def create_event():
     if role == 'Admin':
         # create the event document
         new_event = Event(
-            name=post_data.get('name', unique=True),
+            name=post_data.get('name'),
             location=post_data.get('location'),
             description=post_data.get('description'),
             website=post_data.get('website'),
@@ -66,3 +66,17 @@ def get_single_event(id):
         'status': 'success',
         'data': event
     })
+
+# delete event
+@event_routes.route('/<id>', methods=['DELETE'])
+def delete_single_event(id):
+    event = Event.objects.get(pk=id)
+    post_data = request.get_json()
+    user_id = post_data.get('user')
+    user = User.objects.get(pk=user_id)
+    if user.role == 'Admin':
+        event.delete()
+        return jsonify({
+            'status': 'success',
+            'message': 'Event deleted'
+        })
