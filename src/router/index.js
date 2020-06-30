@@ -4,6 +4,7 @@ import Home from "../components/Home.vue";
 import Login from "../components/Login.vue";
 import Signup from "../components/Signup.vue";
 import AddEvent from "../components/AddEvent.vue";
+import Event from "../components/Event.vue";
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,12 @@ const routes = [
     name: "add-event",
     component: AddEvent,
   },
+	{
+		path: "/event/:id",
+		name: "event",
+		component: Event,
+		props: true
+	}
 ];
 
 const router = new VueRouter({
