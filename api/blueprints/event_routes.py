@@ -39,7 +39,7 @@ def create_event():
             facebook=post_data.get('facebook'),
             twitter=post_data.get('twitter'),
             instagram=post_data.get('instagram'),
-            genre=post_data.get('genre')
+            genre=post_data.get('genre'),
             event_type=post.data.get('event_type')
         )
         # save to db
